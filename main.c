@@ -15,7 +15,7 @@ struct craftmaterial;
 typedef struct craftmaterial CraftingMaterial;
 
 struct craftmaterial {
-    int amount;
+    int* amount;
     Material* material;
 };
 
@@ -31,7 +31,7 @@ struct recipe {
 Material* loadMaterials(int*);
 Recipe* loadRecipes(int*, Material*, const int);
 void AddMaterial(const char*, Material*, int* const, int* const);
-void AddRecipe(char*, Recipe*, int* const, int* const, Material* const, const int);
+void AddRecipe(char*, Recipe*, const int* , int* const, Material* const, const int);
 int IndexOfMaterial(const Material*, const char*, const int);
 
 void AddMaterial(const char* material, Material* materials, int* const len , int* const maxlen)
@@ -91,7 +91,7 @@ int IndexOfMaterial(const Material* materials, const char* material, const int l
 }
 
 void AddRecipe(char* recipe, Recipe* recipes,
-    int* const len, int* const maxlen,  Material* const materials, const int matLen)
+    const int* len, int* const maxlen,  Material* const materials, const int matLen)
 {
     if ((*len) == (*maxlen)) {
         *maxlen += 10;
@@ -106,8 +106,8 @@ void AddRecipe(char* recipe, Recipe* recipes,
 
     while (cmats_tok != NULL)
     {
-        char* amount = strtok_r(cmats_tok,";",&cmats_tok);
-        char* name = strtok_r(0,";",&cmats_tok);
+        const char* amount = strtok_r(cmats_tok,";",&cmats_tok);
+        const char* name = strtok_r(0,";",&cmats_tok);
 
         int index = IndexOfMaterial(materials, name, matLen);
 
@@ -119,15 +119,15 @@ void AddRecipe(char* recipe, Recipe* recipes,
         {
             int craftLen = recipes[*len].materialsLength;
 
-            recipes[*len].materials[craftLen]->amount = atoi(amount);
+            *(recipes[*len].materials[craftLen]->amount) = atoi(amount);
             recipes[*len].materials[craftLen]->material = materials + index;
         }
 
         cmats_tok = strtok_r(0, ",", &craftMats);
     }
 
-    char* amount = strtok_r(result,";",&result);
-    char* name = strtok_r(0,";",&result);
+    const char* amount = strtok_r(result,";",&result);
+    const char* name = strtok_r(0,";",&result);
 
     int index = IndexOfMaterial(materials, name, matLen);
 
@@ -137,10 +137,10 @@ void AddRecipe(char* recipe, Recipe* recipes,
     }
     else
     {
-        int craftLen = recipes[*len].materialsLength;
+        int craftLen = recipes[(*len)].materialsLength;
 
-        recipes[*len].materials[craftLen]->amount = atoi(amount);
-        recipes[*len].materials[craftLen]->material = materials + index;
+        *(recipes[(*len)].materials[craftLen]->amount) = atoi(amount);
+        recipes[(*len)].materials[craftLen]->material = materials + index;
     }
 
     printf("Reach here\n");
