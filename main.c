@@ -33,7 +33,7 @@ Recipe* loadRecipes(int*, Material*, const int);
 void AddMaterial(const char*, Material*, int* const, int* const);
 void AddRecipe(char*, Recipe*, const int* , int* const, Material* const, const int);
 int IndexOfMaterial(const Material*, const char*, const int);
-void freeAll(Recipe*, Material*, const int, const int);
+void freeAll(Recipe*, Material*, const int);
 
 void AddMaterial(const char* material, Material* materials, int* const len , int* const maxlen)
 {
@@ -192,7 +192,7 @@ Recipe* loadRecipes(int* len, Material* materials, const int matLen)
     return recipes;
 }
 
-void freeAll(Recipe* recipes, Material* materials, const int recLen, const int matLen)
+void freeAll(Recipe* recipes, Material* materials, const int recLen)
 {
     for(int i = 0; i < recLen; i++)
     {
@@ -222,7 +222,7 @@ int main()
 
     printf("------------------------\nLoaded %d recipes\n",matLen);
 
-    freeAll(recipes, materials, recLen, matLen);
+    freeAll(recipes, materials, recLen);
 
     return 0;
 }
