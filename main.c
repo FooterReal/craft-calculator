@@ -119,7 +119,10 @@ void AddRecipe(char* recipe, Recipe* recipes,
         {
             int craftLen = recipes[*len].materialsLength;
 
-            *(recipes[*len].materials[craftLen]->amount) = atoi(amount);
+            int* amHelper = (int*)malloc(sizeof(int));
+            (*amHelper) = atoi(amount);
+
+            recipes[*len].materials[craftLen]->amount = amHelper;
             recipes[*len].materials[craftLen]->material = materials + index;
         }
 
@@ -139,7 +142,10 @@ void AddRecipe(char* recipe, Recipe* recipes,
     {
         int craftLen = recipes[(*len)].materialsLength;
 
-        *(recipes[(*len)].materials[craftLen]->amount) = atoi(amount);
+        int* amHelper = (int*)malloc(sizeof(int));
+        (*amHelper) = atoi(amount);
+
+        recipes[*len].materials[craftLen]->amount = amHelper;
         recipes[(*len)].materials[craftLen]->material = materials + index;
     }
 
