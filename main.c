@@ -33,6 +33,7 @@ Recipe* loadRecipes(int*, Material*, const int);
 void AddMaterial(const char*, Material*, int* const, int* const);
 void AddRecipe(char*, Recipe*, const int* , int* const, Material* const, const int);
 int IndexOfMaterial(const Material*, const char*, const int);
+void freeAll(Recipe*, Material*, const int, const int);
 
 void AddMaterial(const char* material, Material* materials, int* const len , int* const maxlen)
 {
@@ -59,7 +60,7 @@ Material* loadMaterials(int* const len)
     int maxlen = 10;
 
     char buffer[50];
-    char* material = (char*)malloc(sizeof(char)*50);
+    char* material = (char*)malloc(sizeof(buffer) + 1);
 
     while (!feof(materialFile))
     {
@@ -67,7 +68,7 @@ Material* loadMaterials(int* const len)
 
         buffer[strcspn(buffer, "\r\n")] = 0;
 
-        strcpy(material,buffer);    
+        strcpy(material, buffer);    
 
         AddMaterial(material, materials, len, &maxlen);
 
@@ -167,7 +168,7 @@ Recipe* loadRecipes(int* len, Material* materials, const int matLen)
     int maxlen = 10;
 
     char buffer[500];
-    char* recipe = (char*)malloc(sizeof(char)*500);
+    char* recipe = (char*)malloc(sizeof(buffer) + 1);
 
     while (!feof(recipeFile))
     {
@@ -190,6 +191,24 @@ Recipe* loadRecipes(int* len, Material* materials, const int matLen)
     return recipes;
 }
 
+void freeAll(Recipe* recipes, Material* materials, const int recLen, const int matLen)
+{
+    for(int i = 0; i < recLen; i++)
+    {
+        int craftLen = recipes[i].materialsLength;
+
+        for(int j = 0; j < craftLen; j++)
+        {
+            free(recipes[i].materials[j]->amount);
+            free(recipes[i].materials[j]);
+        }
+    }
+
+    free(recipes);
+
+    free(materials);
+}
+
 int main()
 {
     int matLen = 0;
@@ -202,8 +221,7 @@ int main()
 
     printf("------------------------\nLoaded %d recipes\n",matLen);
 
-    free(materials);
-    free(recipes);
+    freeAll(recipes, materials, recLen, matLen);
 
     return 0;
 }
