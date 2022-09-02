@@ -57,7 +57,8 @@ Material* loadMaterials(int* const len)
     }
 
     Material* materials = (Material*)malloc(sizeof(Material) * 10);
-    int maxlen = 10;
+    int* const maxlen = (int*)malloc(sizeof(int));
+    (*maxlen) = 10;
 
     char buffer[50];
     char* material = (char*)malloc(sizeof(buffer) + 1);
@@ -70,7 +71,7 @@ Material* loadMaterials(int* const len)
 
         strcpy(material, buffer);    
 
-        AddMaterial(material, materials, len, &maxlen);
+        AddMaterial(material, materials, len, maxlen);
 
         printf("Loaded %s\n", material);
     }
