@@ -34,7 +34,8 @@ void AddMaterial(char*, Material*, int*, int*);
 void AddRecipe(char*, Recipe*, int*, int*, Material*, const int);
 int IndexOfMaterial(Material*, char*, const int);
 
-void AddMaterial(char* material, Material* materials, int* len, int* maxlen) {
+void AddMaterial(const char* material, Material* materials, int* len, const int* maxlen)
+{
     if (len == maxlen) {
         maxlen += 10;
         materials = realloc(materials,sizeof(Material) * (*maxlen));
@@ -43,10 +44,18 @@ void AddMaterial(char* material, Material* materials, int* len, int* maxlen) {
     strcpy(materials[*len].name, material);
 
     (*len)++;
+
+    free(material);
 }
 
-Material* loadMaterials(int* len) {
+Material* loadMaterials(int* len)
+{
     FILE* materialFile = fopen("materials.txt","r");
+
+    if (materialFile == NULL) {
+        printf("Error: File 'materials.txt' couldn't be opened.\n");
+        exit(1);
+    }
 
     Material* materials = (Material*)malloc(sizeof(Material) * 10);
     int maxlen = 10;
@@ -56,8 +65,13 @@ Material* loadMaterials(int* len) {
     while (!feof(materialFile))
     {
         fgets(buffer,50,materialFile);
+
         buffer[strcspn(buffer, "\r\n")] = 0;
-        AddMaterial(buffer,materials,len,&maxlen);
+        char* material = (char*)malloc(sizeof(char)*50);
+
+        strcpy(material,buffer);    
+
+        AddMaterial(material,materials,len,&maxlen);
 
         printf("Loaded %s\n",buffer);
     }
@@ -67,7 +81,8 @@ Material* loadMaterials(int* len) {
     return materials;
 }
 
-int IndexOfMaterial(Material* materials, char* material, const int len) {
+int IndexOfMaterial(const Material* materials, const char* material, const int len)
+{
     int i = 0;
     while(i < len && strcmp(materials[i].name,material) != 0) i++;
 
@@ -75,18 +90,21 @@ int IndexOfMaterial(Material* materials, char* material, const int len) {
     return i;
 }
 
-void AddRecipe(char* recipe, Recipe* recipes, int* len, int* maxlen, Material* materials, const int matLen) {
+void AddRecipe(const char* recipe, const Recipe* recipes,
+    const int* len, const int* maxlen, const Material* materials, const int matLen)
+{
     if (len == maxlen) {
         maxlen += 10;
         recipes = realloc(recipes,sizeof(Recipe) * (*maxlen));
     }
 
-    char* token = strtok(recipe,"=>");
+    char* token = strtok_r(recipe,"=>");
     
     printf("%s\n",token);
 }
 
-Recipe* loadRecipes(int* len, Material* materials, const int matLen) {
+Recipe* loadRecipes(int* len, Material* materials, const int matLen)
+{
     FILE* recipeFile = fopen("recipes.txt","r");
 
     Recipe* recipes = (Recipe*)malloc(sizeof(Recipe) * 10);
@@ -108,7 +126,8 @@ Recipe* loadRecipes(int* len, Material* materials, const int matLen) {
     return recipes;
 }
 
-int main() {
+int main()
+{
     int matLen = 0;
     Material* materials = loadMaterials(&matLen);
 
