@@ -1,0 +1,8 @@
+1;netherrack,1;fuel=>1;nether brick
+4;nether brick=>1;nether bricks
+2;nether brick,2;nether wart=>1;red nether bricks
+3;nether bricks=>6;nether brick slab
+3;red nether bricks=>6;red nether brick slab
+2;nether brick slab=>1;chiseled nether bricks
+1;nether quartz ore,1;fuel=>1;nether quartz
+4;nether quartz=>1;block of quartz

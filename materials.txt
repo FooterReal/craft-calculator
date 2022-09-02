@@ -1,0 +1,12 @@
+netherrack
+fuel
+nether brick
+nether bricks
+nether wart
+red nether bricks
+nether brick slab
+chiseled nether bricks
+red nether brick slab
+nether quartz
+block of quartz
+nether quartz ore
