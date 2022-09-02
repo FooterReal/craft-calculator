@@ -30,25 +30,23 @@ struct recipe {
 
 Material* loadMaterials(int*);
 Recipe* loadRecipes(int*, Material*, const int);
-void AddMaterial(char*, Material*, int*, int*);
-void AddRecipe(char*, Recipe*, int*, int*, Material*, const int);
-int IndexOfMaterial(Material*, char*, const int);
+void AddMaterial(const char*, Material*, int* const, int* const);
+void AddRecipe(char*, Recipe*, const int*, const int*, const Material*, const int);
+int IndexOfMaterial(const Material*, const char*, const int);
 
-void AddMaterial(const char* material, Material* materials, int* len, const int* maxlen)
+void AddMaterial(const char* material, Material* materials, int* const len , int* const maxlen)
 {
-    if (len == maxlen) {
-        maxlen += 10;
+    if ((*len) == (*maxlen)) {
+        (*maxlen) += 10;
         materials = realloc(materials,sizeof(Material) * (*maxlen));
     }
 
     strcpy(materials[*len].name, material);
 
-    (*len)++;
-
-    free(material);
+    (*len) = (*len) + 1;
 }
 
-Material* loadMaterials(int* len)
+Material* loadMaterials(int* const len)
 {
     FILE* materialFile = fopen("materials.txt","r");
 
@@ -73,6 +71,8 @@ Material* loadMaterials(int* len)
 
         AddMaterial(material,materials,len,&maxlen);
 
+        free(material);
+
         printf("Loaded %s\n",buffer);
     }
 
@@ -90,15 +90,16 @@ int IndexOfMaterial(const Material* materials, const char* material, const int l
     return i;
 }
 
-void AddRecipe(const char* recipe, const Recipe* recipes,
+void AddRecipe(char* recipe, Recipe* recipes,
     const int* len, const int* maxlen, const Material* materials, const int matLen)
 {
     if (len == maxlen) {
         maxlen += 10;
-        recipes = realloc(recipes,sizeof(Recipe) * (*maxlen));
+        recipes = (Recipe*)realloc(recipes,sizeof(Recipe) * (*maxlen));
     }
 
-    char* token = strtok_r(recipe,"=>");
+    char* token;
+    token = strtok_r(recipe,"=>", &recipe);
     
     printf("%s\n",token);
 }
