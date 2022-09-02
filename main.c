@@ -119,11 +119,15 @@ void AddRecipe(char* recipe, Recipe* recipes,
         {
             int craftLen = recipes[*len].materialsLength;
 
+            recipes[*len].materials[craftLen] = (CraftingMaterial*)malloc(sizeof(CraftingMaterial));
+
             int* amHelper = (int*)malloc(sizeof(int));
             (*amHelper) = atoi(amount);
 
             recipes[*len].materials[craftLen]->amount = amHelper;
             recipes[*len].materials[craftLen]->material = materials + index;
+
+            recipes[*len].materialsLength++;
         }
 
         cmats_tok = strtok_r(0, ",", &craftMats);
@@ -140,16 +144,14 @@ void AddRecipe(char* recipe, Recipe* recipes,
     }
     else
     {
-        int craftLen = recipes[(*len)].materialsLength;
+        recipes[(*len)].result = (CraftingMaterial*)malloc(sizeof(CraftingMaterial));
 
         int* amHelper = (int*)malloc(sizeof(int));
         (*amHelper) = atoi(amount);
 
-        recipes[*len].materials[craftLen]->amount = amHelper;
-        recipes[(*len)].materials[craftLen]->material = materials + index;
+        recipes[(*len)].result->amount = amHelper;
+        recipes[(*len)].result->material = materials + index;
     }
-
-    printf("Reach here\n");
 }
 
 Recipe* loadRecipes(int* len, Material* materials, const int matLen)
@@ -174,11 +176,7 @@ Recipe* loadRecipes(int* len, Material* materials, const int matLen)
 
         strcpy(recipe, buffer);
 
-        printf("Recipe: %s\n",recipe);
-
         AddRecipe(recipe,recipes,len,&maxlen,materials,matLen);
-
-        printf("Loaded: %d %s\n",recipes[(*len)].result->amount,recipes[(*len)].result->material->name);
 
         printf("Loaded recipe for %s\n",recipes[(*len)].result->material->name);
 
