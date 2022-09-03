@@ -14,7 +14,7 @@ void AddMaterial(const char* material, Material* materials, int* const len , int
     (*len) = (*len) + 1;
 }
 
-Material* loadMaterials(int* const len)
+Material* LoadMaterials(int* const len)
 {
     FILE* materialFile = fopen("./src/materials.txt","r");
 
@@ -59,7 +59,7 @@ int IndexOfMaterial(const Material* materials, const char* material, const int l
     return i;
 }
 
-void writeMaterial(const Material* const mat) 
+void WriteMaterial(const Material* const mat) 
 {
     char tr[10] = "true\0";
     char fr[10] = "false\0";
@@ -68,7 +68,7 @@ void writeMaterial(const Material* const mat)
     else printf("Material: %s (%s)\n",mat->name,fr);   
 }
 
-void writeCraftingMaterial(const CraftingMaterial* const mat)
+void WriteCraftingMaterial(const CraftingMaterial* const mat)
 {
     char tr[10] = "true\0";
     char fr[10] = "false\0";
@@ -77,7 +77,33 @@ void writeCraftingMaterial(const CraftingMaterial* const mat)
     else printf("Crafting mat: %d %s (%s)\n",*(mat->amount),mat->material->name,fr);
 }
 
-CraftingMaterial* getRequired(int* const len, Material* const materials, const int matLen)
+void AddCraftingMaterial(const char* name, const int amount,
+     CraftingMaterial* mats, int* const len, int* const maxlen, Material* const materials, const int matLen)
+{
+    int index = IndexOfMaterial(materials,name,matLen);
+
+    if (index == -1)
+    {
+        printf("Unkown material: %s\n",name);
+    }
+    else 
+    {
+        if((*len) == (*maxlen))
+        {
+            (*maxlen) += 10;
+            mats = (CraftingMaterial*)realloc(mats,sizeof(CraftingMaterial)*(*maxlen));
+        }
+
+        mats[*len].amount = (int*)malloc(sizeof(int));
+        *(mats[*len].amount) = amount;
+
+        mats[*len].material = materials+index;
+
+        (*len)++;
+    }
+}
+
+CraftingMaterial* GetRequired(int* const len, Material* const materials, const int matLen)
 {
     int maxlen = 10;
     CraftingMaterial* mats = (CraftingMaterial*)malloc(sizeof(CraftingMaterial)*maxlen);
@@ -98,26 +124,7 @@ CraftingMaterial* getRequired(int* const len, Material* const materials, const i
             scanf("%c", name);
             scanf("%[^\n]", name);
 
-            int index = IndexOfMaterial(materials,name,matLen);
-
-            if (index == -1)
-            {
-                printf("Unkown material: %s\n",name);
-            }
-            else 
-            {
-                if((*len) == maxlen)
-                {
-                    maxlen += 10;
-                    mats = (CraftingMaterial*)realloc(mats,sizeof(CraftingMaterial)*maxlen);
-                }
-
-                mats[*len].amount = (int*)malloc(sizeof(int));
-                *(mats[*len].amount) = amount;
-                mats[*len].material = materials+index;
-
-                (*len)++;
-            }
+            AddCraftingMaterial(name, amount, mats, len, &maxlen, materials, matLen);
         }
     } while (amount > 0);
     

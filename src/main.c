@@ -26,17 +26,17 @@ void freeAll(Recipe* recipes, Material* materials, const int recLen)
 int main()
 {
     int matLen = 0;
-    Material* materials = loadMaterials(&matLen);
+    Material* materials = LoadMaterials(&matLen);
 
     printf("------------------------\nLoaded %d materials\n\n",matLen);
 
     int recLen = 0;
-    Recipe* recipes = loadRecipes(&recLen, materials, matLen);
+    Recipe* recipes = LoadRecipes(&recLen, materials, matLen);
 
     printf("------------------------\nLoaded %d recipes\n\n",recLen);
 
     int reqLen = 0;
-    CraftingMaterial* required = getRequired(&reqLen, materials, matLen);
+    CraftingMaterial* required = GetRequired(&reqLen, materials, matLen);
 
     freeAll(recipes, materials, recLen);
 

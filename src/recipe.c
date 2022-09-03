@@ -67,7 +67,7 @@ void AddRecipe(char* recipe, Recipe* recipes,
     }
 }
 
-Recipe* loadRecipes(int* len, Material* materials, const int matLen)
+Recipe* LoadRecipes(int* len, Material* materials, const int matLen)
 {
     FILE* recipeFile = fopen("./src/recipes.txt","r");
 
@@ -103,7 +103,7 @@ Recipe* loadRecipes(int* len, Material* materials, const int matLen)
     return recipes;
 }
 
-void writeRecipe(const Recipe* const rec)
+void WriteRecipe(const Recipe* const rec)
 {
     printf("Recipe (%d materials):\n",rec->materialsLength);
 
