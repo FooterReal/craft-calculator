@@ -114,3 +114,11 @@ void WriteRecipe(const Recipe* const rec)
 
     printf("Makes %d %s\n",*(rec->result->amount),rec->result->material->name);
 }
+
+Recipe* FindRecipe(const char* const word, Recipe* recipes, const int len)
+{
+    int i = 0;
+    while(i < len && strcmp(recipes[i].result->material->name, word) != 0) { i++; }
+
+    return (recipes + i);
+}

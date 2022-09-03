@@ -18,5 +18,6 @@ struct recipe {
 Recipe* LoadRecipes(int*, Material*, const int);
 void AddRecipe(char*, Recipe*, const int* , int* const, Material* const, const int);
 void WriteRecipe(const Recipe* const);
+Recipe* FindRecipe(const char* const, Recipe* recipes, const int len);
 
 #endif
