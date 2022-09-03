@@ -24,5 +24,6 @@ struct craftmaterial {
 Material* loadMaterials(int*);
 void AddMaterial(const char*, Material*, int* const, int* const);
 int IndexOfMaterial(const Material*, const char*, const int);
+void writeMaterial(const Material* const);
 
 #endif

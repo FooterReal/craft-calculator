@@ -35,8 +35,6 @@ int main()
 
     printf("------------------------\nLoaded %d recipes\n\n",recLen);
 
-
-
     freeAll(recipes, materials, recLen);
 
     return 0;

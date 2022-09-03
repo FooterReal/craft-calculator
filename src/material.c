@@ -58,3 +58,12 @@ int IndexOfMaterial(const Material* materials, const char* material, const int l
     if (i >= len) i = -1;
     return i;
 }
+
+void writeMaterial(const Material* const mat) 
+{
+    char tr[10] = "true\0";
+    char fr[10] = "false\0";
+
+    if(mat->base) printf("Material: %s (%s)\n",mat->name,tr);
+    else printf("Material: %s (%s)\n",mat->name,fr);   
+}

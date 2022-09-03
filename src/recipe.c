@@ -62,7 +62,8 @@ void AddRecipe(char* recipe, Recipe* recipes,
 
         recipes[(*len)].result->amount = amHelper;
         recipes[(*len)].result->material = materials + index;
-        (materials + index)->base = false;
+        
+        if ((materials + index)->base) (materials + index)->base = false;
     }
 }
 
@@ -100,4 +101,16 @@ Recipe* loadRecipes(int* len, Material* materials, const int matLen)
     fclose(recipeFile);
 
     return recipes;
+}
+
+void writeRecipe(const Recipe* const rec)
+{
+    printf("Recipe (%d materials):\n",rec->materialsLength);
+
+    for(int i = 0; i < rec->materialsLength; i++)
+    {
+        printf("Needs %d %s\n",*(rec->materials[i]->amount),rec->materials[i]->material->name);
+    }
+
+    printf("Makes %d %s\n",*(rec->result->amount),rec->result->material->name);
 }
