@@ -73,8 +73,31 @@ void WriteCraftingMaterial(const CraftingMaterial* const mat)
     char tr[10] = "true\0";
     char fr[10] = "false\0";
 
-    if(mat->material->base) printf("Crafting mat: %d %s (%s)\n",*(mat->amount),mat->material->name,tr);
-    else printf("Crafting mat: %d %s (%s)\n",*(mat->amount),mat->material->name,fr);
+    char name[50];
+    strcpy (name,mat->material->name);
+
+    if (strcmp(name,"fuel") == 0)
+    {
+        int fuelAm = *(mat->amount);
+        
+        int rem = (fuelAm * 3) % 2;
+        int planksAm = (fuelAm * 3) / 2 + (rem > 0 ? 1 : 0);
+
+        rem = fuelAm % 8;
+        int coalAm = fuelAm / 8 + (rem > 0 ? 1 : 0);
+
+        rem = fuelAm % 1000;
+        int lavaAm = fuelAm / 1000 + (rem > 0 ? 1 : 0);
+
+        printf("Crafting mat: %d %s (%d planks, %d coal, %d lava bucket)",fuelAm,mat->material->name,planksAm,coalAm,lavaAm);
+    }
+    else
+    {
+        printf("Crafting mat: %d %s",*(mat->amount),mat->material->name);
+    }
+
+    if(mat->material->base) printf(" (%s)\n",tr);
+    else printf(" (%s)\n",fr);
 }
 
 void AddCraftingMaterial(const char* name, const int amount,
