@@ -659,7 +659,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "F:/ELTE/Projects/MMC"
+			"value" : ".."
 		},
 		{
 			"name" : "CMAKE_INSTALL_PREFIX",
