@@ -68,6 +68,15 @@ void writeMaterial(const Material* const mat)
     else printf("Material: %s (%s)\n",mat->name,fr);   
 }
 
+void writeCraftingMaterial(const CraftingMaterial* const mat)
+{
+    char tr[10] = "true\0";
+    char fr[10] = "false\0";
+
+    if(mat->material->base) printf("Crafting mat: %d %s (%s)\n",*(mat->amount),mat->material->name,tr);
+    else printf("Crafting mat: %d %s (%s)\n",*(mat->amount),mat->material->name,fr);
+}
+
 CraftingMaterial* getRequired(int* const len, Material* const materials, const int matLen)
 {
     int maxlen = 10;
