@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "recipe.h": "c",
+        "material.h": "c",
+        "string.h": "c",
+        "stdio.h": "c"
+    }
+}
