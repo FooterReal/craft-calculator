@@ -1,17 +1,17 @@
 [
 {
   "directory": "F:/ELTE/Projects/MMC/build",
-  "command": "C:\\MinGW\\bin\\gcc.exe   -O3 -DNDEBUG -o CMakeFiles\\mmc.dir\\main.c.obj -c F:\\ELTE\\Projects\\MMC\\main.c",
+  "command": "C:/MinGW/bin/gcc.exe   -O3 -DNDEBUG -o CMakeFiles/mmc.dir/main.c.obj -c F:/ELTE/Projects/MMC/main.c",
   "file": "F:/ELTE/Projects/MMC/main.c"
 },
 {
   "directory": "F:/ELTE/Projects/MMC/build",
-  "command": "C:\\MinGW\\bin\\gcc.exe   -O3 -DNDEBUG -o CMakeFiles\\mmc.dir\\material.c.obj -c F:\\ELTE\\Projects\\MMC\\material.c",
+  "command": "C:/MinGW/bin/gcc.exe   -O3 -DNDEBUG -o CMakeFiles/mmc.dir/material.c.obj -c F:/ELTE/Projects/MMC/material.c",
   "file": "F:/ELTE/Projects/MMC/material.c"
 },
 {
   "directory": "F:/ELTE/Projects/MMC/build",
-  "command": "C:\\MinGW\\bin\\gcc.exe   -O3 -DNDEBUG -o CMakeFiles\\mmc.dir\\recipe.c.obj -c F:\\ELTE\\Projects\\MMC\\recipe.c",
+  "command": "C:/MinGW/bin/gcc.exe   -O3 -DNDEBUG -o CMakeFiles/mmc.dir/recipe.c.obj -c F:/ELTE/Projects/MMC/recipe.c",
   "file": "F:/ELTE/Projects/MMC/recipe.c"
 }
 ]
