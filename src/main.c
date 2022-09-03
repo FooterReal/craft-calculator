@@ -28,12 +28,14 @@ int main()
     int matLen = 0;
     Material* materials = loadMaterials(&matLen);
 
-    printf("------------------------\nLoaded %d materials\n",matLen);
+    printf("------------------------\nLoaded %d materials\n\n",matLen);
 
     int recLen = 0;
     Recipe* recipes = loadRecipes(&recLen, materials, matLen);
 
-    printf("------------------------\nLoaded %d recipes\n",matLen);
+    printf("------------------------\nLoaded %d recipes\n\n",recLen);
+
+
 
     freeAll(recipes, materials, recLen);
 

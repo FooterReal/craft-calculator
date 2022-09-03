@@ -9,13 +9,14 @@ void AddMaterial(const char* material, Material* materials, int* const len , int
     }
 
     strcpy(materials[*len].name, material);
+    materials[*len].base = true;
 
     (*len) = (*len) + 1;
 }
 
 Material* loadMaterials(int* const len)
 {
-    FILE* materialFile = fopen("materials.txt","r");
+    FILE* materialFile = fopen("./src/materials.txt","r");
 
     if (materialFile == NULL) {
         printf("Error: File 'materials.txt' couldn't be opened.\n");

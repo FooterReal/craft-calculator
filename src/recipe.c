@@ -62,12 +62,13 @@ void AddRecipe(char* recipe, Recipe* recipes,
 
         recipes[(*len)].result->amount = amHelper;
         recipes[(*len)].result->material = materials + index;
+        (materials + index)->base = false;
     }
 }
 
 Recipe* loadRecipes(int* len, Material* materials, const int matLen)
 {
-    FILE* recipeFile = fopen("recipes.txt","r");
+    FILE* recipeFile = fopen("./src/recipes.txt","r");
 
     if (recipeFile == NULL) {
         printf("Error: File 'materials.txt' couldn't be opened.\n");
