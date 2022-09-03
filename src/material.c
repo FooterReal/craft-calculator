@@ -67,3 +67,50 @@ void writeMaterial(const Material* const mat)
     if(mat->base) printf("Material: %s (%s)\n",mat->name,tr);
     else printf("Material: %s (%s)\n",mat->name,fr);   
 }
+
+CraftingMaterial* getRequired(int* const len, Material* const materials, const int matLen)
+{
+    int maxlen = 10;
+    CraftingMaterial* mats = (CraftingMaterial*)malloc(sizeof(CraftingMaterial)*maxlen);
+
+    int amount = -1;
+    char name[50];
+
+    printf("Input required materials!\n");
+
+    do
+    {
+        printf("Amount (0 or lower to stop): ");
+        scanf("%d",&amount);
+
+        if (amount > 0)
+        {
+            printf("Name: ");
+            scanf("%c", name);
+            scanf("%[^\n]", name);
+
+            int index = IndexOfMaterial(materials,name,matLen);
+
+            if (index == -1)
+            {
+                printf("Unkown material: %s\n",name);
+            }
+            else 
+            {
+                if((*len) == maxlen)
+                {
+                    maxlen += 10;
+                    mats = (CraftingMaterial*)realloc(mats,sizeof(CraftingMaterial)*maxlen);
+                }
+
+                mats[*len].amount = (int*)malloc(sizeof(int));
+                *(mats[*len].amount) = amount;
+                mats[*len].material = materials+index;
+
+                (*len)++;
+            }
+        }
+    } while (amount > 0);
+    
+    return mats;
+}

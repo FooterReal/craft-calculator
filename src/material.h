@@ -26,4 +26,6 @@ void AddMaterial(const char*, Material*, int* const, int* const);
 int IndexOfMaterial(const Material*, const char*, const int);
 void writeMaterial(const Material* const);
 
+CraftingMaterial* getRequired(int* const, Material* const, const int);
+
 #endif

@@ -35,6 +35,9 @@ int main()
 
     printf("------------------------\nLoaded %d recipes\n\n",recLen);
 
+    int reqLen = 0;
+    CraftingMaterial* required = getRequired(&reqLen, materials, matLen);
+
     freeAll(recipes, materials, recLen);
 
     return 0;
