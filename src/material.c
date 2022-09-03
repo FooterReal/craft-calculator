@@ -88,18 +88,28 @@ void AddCraftingMaterial(const char* name, const int amount,
     }
     else 
     {
-        if((*len) == (*maxlen))
+        int i = 0;
+        while(i < (*len) && strcmp(mats[i].material->name,name) != 0) i++;
+
+        if (i < (*len))
         {
-            (*maxlen) += 10;
-            mats = (CraftingMaterial*)realloc(mats,sizeof(CraftingMaterial)*(*maxlen));
+            *(mats[i].amount) += amount;
         }
+        else
+        {
+            if((*len) == (*maxlen))
+            {
+                (*maxlen) += 10;
+                mats = (CraftingMaterial*)realloc(mats,sizeof(CraftingMaterial)*(*maxlen));
+            }
 
-        mats[*len].amount = (int*)malloc(sizeof(int));
-        *(mats[*len].amount) = amount;
+            mats[*len].amount = (int*)malloc(sizeof(int));
+            *(mats[*len].amount) = amount;
 
-        mats[*len].material = materials+index;
+            mats[*len].material = materials+index;
 
-        (*len)++;
+            (*len)++;
+        }
     }
 }
 
