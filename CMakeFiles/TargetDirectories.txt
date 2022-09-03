@@ -1,0 +1,3 @@
+F:/ELTE/Projects/MMC/CMakeFiles/mmc.dir
+F:/ELTE/Projects/MMC/CMakeFiles/edit_cache.dir
+F:/ELTE/Projects/MMC/CMakeFiles/rebuild_cache.dir

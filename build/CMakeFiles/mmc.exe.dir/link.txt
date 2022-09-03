@@ -1,3 +1,0 @@
-"C:\Program Files\CMake\bin\cmake.exe" -E rm -f CMakeFiles\mmc.exe.dir/objects.a
-C:\MinGW\bin\ar.exe qc CMakeFiles\mmc.exe.dir/objects.a @CMakeFiles\mmc.exe.dir\objects1.rsp
-C:\MinGW\bin\gcc.exe -O3 -DNDEBUG -Wl,--whole-archive CMakeFiles\mmc.exe.dir/objects.a -Wl,--no-whole-archive -o mmc.exe.exe -Wl,--out-implib,libmmc.exe.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\mmc.exe.dir\linklibs.rsp
